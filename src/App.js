@@ -28,43 +28,52 @@ class App extends React.Component {
 
   addTask = (e, task) => {
     e.preventDefault();
-    const newTask ={
+    const newTask = {
       task: task,
       id: Date.now(),
       completed: false
     };
     this.setState({
-      list : [...this.state.list, newTask]
+      list: [...this.state.list, newTask]
     })
   }
 
-  toggleTask = taskId =>{
+  toggleTask = taskId => {
     console.log(taskId)
     this.setState({
       list: this.state.list.map(task => {
         if (taskId === task.id) {
           return {
-            ... task,
+            ...task,
             completed: !task.completed
           };
         }
         return task;
       })
-    })
-  }
+    });
+  };
+
+  clearCompleted = e => {
+    e.preventDefault();
+  this.setState({
+    list: this.state.list.filter(task => !task.completed)
+  });
+};
+
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm addTask= {this.addTask}
-          />
+        <TodoForm addTask={this.addTask}
+        />
         <div>
-          
-          <TodoList 
-          tasks= {this.state.list}
-          toggleTask={this.toggleTask}
-           />
+
+          <TodoList
+            tasks={this.state.list}
+            toggleTask={this.toggleTask}
+            clearCompleted={this.clearCompleted}
+          />
 
         </div>
       </div>
