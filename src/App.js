@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoList from './components/TodoList'
+import TodoForm from './components/TodoForm'
 
 const list = [
   {
@@ -39,7 +40,7 @@ class App extends React.Component {
 
   toggleTask = taskId =>{
     console.log(taskId)
-    this.setsState({
+    this.setState({
       list: this.state.list.map(task => {
         if (taskId === task.id) {
           return {
@@ -56,11 +57,15 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <TodoForm addTask= {this.addTask}
+          />
         <div>
+          
           <TodoList 
           tasks= {this.state.list}
           toggleTask={this.toggleTask}
            />
+
         </div>
       </div>
     );
