@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoList from './components/TodoList'
 
 const list = [
   {
@@ -36,10 +37,31 @@ class App extends React.Component {
     })
   }
 
+  toggleTask = taskId =>{
+    console.log(taskId)
+    this.setsState({
+      list: this.state.list.map(task => {
+        if (taskId === task.id) {
+          return {
+            ... task,
+            completed: !task.completed
+          };
+        }
+        return task;
+      })
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <div>
+          <TodoList 
+          tasks= {this.state.list}
+          toggleTask={this.toggleTask}
+           />
+        </div>
       </div>
     );
   }
